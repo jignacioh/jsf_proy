@@ -12,24 +12,29 @@ and open the template in the editor.
       locale="#{facesContext.externalContext.requestLocale}"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-       <title>CRUD</title>
+        <title>CRUD</title>
     </h:head>
     <h:body>
         <ui:composition template="/plantillas/layout.xhtml">
             <ui:define name="body">
-                
-                
-                 <h:panelGroup id="pnlCliente2" layout="block" style="width: 50%">
+
+
+                <h:panelGroup id="pnlCliente2" layout="block" style="width: 50%">
                     <h:form id="master3">
                         <h:panelGrid columns="3" >
-                            <p:commandButton value="Nuevo Cliente" action="#{clienteController.createCliente}" 
+                            <h:panelGrid style="width:20%">
+                                <p:commandButton value="Nuevo Cliente" action="#{clienteController.createCliente}" 
                                                  update="new_client" oncomplete="PF('new_client').show()" />
-                            <p:inputText value="#{clienteController.nombreCliente}" style="width: 100px" />
-                            <p:commandButton value="Buscar por nombre" 
-                                             action="#{clienteController.buscarCliente}"
-                                             
-                                             ajax="true" update="@form"/>
+                            </h:panelGrid>
+                            <h:panelGrid style="width:60%">
+                                <p:inputText value="#{clienteController.nombreCliente}" style="width: 200px" />
+                            </h:panelGrid>
+                            <h:panelGrid style="width:20%">
+                                <p:commandButton value="Buscar por nombre" 
+                                                 action="#{clienteController.buscarCliente}"
 
+                                                 ajax="true" update="@form"/>
+                            </h:panelGrid>
                         </h:panelGrid>
 
                         <h1>TABLA DE CLIENTES</h1>
@@ -45,7 +50,7 @@ and open the template in the editor.
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputLabel value="Codigo" />
+                                    <h:outputLabel value="Usuario" />
                                 </f:facet>
                                 <h:outputText value="#{usuario.username}" />
                             </p:column>
@@ -54,6 +59,12 @@ and open the template in the editor.
                                     <h:outputLabel value="Nombre" />
                                 </f:facet>
                                 <h:outputText value="#{usuario.nombre}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Apellido" />
+                                </f:facet>
+                                <h:outputText value="#{usuario.apellido}" />
                             </p:column>
                             <p:column  style="width: 250px">
                                 <f:facet name="header">
@@ -77,24 +88,25 @@ and open the template in the editor.
                     <h:form>
                         <p:inputText value="#{clienteController.usuarioEdit.username}" />
                         <p:inputText value="#{clienteController.usuarioEdit.nombre}" />
+                        <p:inputText value="#{clienteController.usuarioEdit.apellido}" />
                         <p:commandButton value="Cerrar" onclick="PF('detail2').hide(); return false" />
                         <p:commandButton value="Guardar" action="#{clienteController.save}" 
                                          ajax="true" update="master3" oncomplete="PF('detail2').hide()" />
                     </h:form>
                 </p:dialog>
                 <p:dialog id="new_client" widgetVar="new_client">
-                   
+
 
                     <h:form>
                         <h:panelGrid bodyrows="11" columns="2" >
-                            <h:outputLabel value="Nombre:"/>
+                            <h:outputLabel value="Usuario:"/>
                             <h:panelGroup>
                                 <h:inputText value="#{clienteController.clienteCreate.username}" 
                                              required="true"
                                              label="Usuario" 
                                              id="usuario"/>
                             </h:panelGroup>
-                            <h:outputLabel value="Codigo:"/>
+                            <h:outputLabel value="Nombre:"/>
                             <h:panelGroup>
                                 <h:inputText value="#{clienteController.clienteCreate.nombre}" 
                                              required="true"
@@ -102,7 +114,14 @@ and open the template in the editor.
                                              id="nombre">
                                 </h:inputText>   
                             </h:panelGroup>
-                            
+                            <h:outputLabel value="Apellido:"/>
+                            <h:panelGroup>
+                                <h:inputText value="#{clienteController.clienteCreate.nombre}" 
+                                             required="true"
+                                             label="Apellido"
+                                             id="apellido">
+                                </h:inputText>   
+                            </h:panelGroup>
                             <p:commandButton value="Crear" action="#{clienteController.create}"
                                              ajax="true" update="master3" oncomplete="PF('new_client').hide()"/>
                             <p:commandButton  value="Cerrar" onclick="PF('new_client').hide(); return false"/>
@@ -110,10 +129,10 @@ and open the template in the editor.
                     </h:form>
 
                 </p:dialog>
-                
-                
+
+
             </ui:define>
-            
+
         </ui:composition>
     </h:body>
 </html>
